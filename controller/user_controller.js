@@ -1,5 +1,10 @@
 const User = require('../models/user');
 
+module.exports.profile = function(req,res){
+    return res.render('profile',{
+        title : "Secured Profile page"
+    });
+}
 module.exports.user = function(req,res){
     console.log('user controller started...');
     return res.render('user',{
@@ -30,5 +35,8 @@ module.exports.create = function(req,res){
     });
 }
 module.exports.createSession = function(req,res){
-    
+    // return res.render('profile',{
+    //     title : "Secured profile page"
+    // });
+    return res.redirect('/');
 }
