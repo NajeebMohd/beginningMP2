@@ -1,11 +1,15 @@
 const User = require('../models/user');
 
 module.exports.profile = function(req,res){
+    
     return res.render('profile',{
         title : "Secured Profile page"
     });
 }
 module.exports.user = function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/profile');
+    }
     console.log('user controller started...');
     return res.render('user',{
         title : "user page"
@@ -13,6 +17,9 @@ module.exports.user = function(req,res){
 }
 
 module.exports.userSignin = function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/profile');
+    }
     console.log('userSignin controller started...');
     return res.render('userSign_in',{
         title : "user Sign in"
@@ -38,5 +45,11 @@ module.exports.createSession = function(req,res){
     // return res.render('profile',{
     //     title : "Secured profile page"
     // });
+    return res.redirect('/');
+}
+
+module.exports.destroySession = function(req,res){
+    console.log('in the destroy session _____*******______****  ___');
+    req.logout();
     return res.redirect('/');
 }

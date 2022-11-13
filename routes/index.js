@@ -12,7 +12,7 @@ router.get('/profile',passport.checkAuthentication,userController.profile);
 router.get('/user',userController.user);
 router.get('/userSignin',userController.userSignin);
 router.post('/user/create',userController.create);
-
+router.get('/userSignout',userController.destroySession);
 //use passport as middleware to authenticate
 router.post('/user/create-session',passport.authenticate(
     'local',
