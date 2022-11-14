@@ -1,0 +1,14 @@
+footer {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: cyan; }
+  footer div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: larger; }
+    footer div a {
+      padding-right: 20px; }

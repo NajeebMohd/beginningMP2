@@ -1,0 +1,17 @@
+footer{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: cyan;
+    div{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: larger;
+        a{
+            padding-right: 20px;
+        }
+    }
+}

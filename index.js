@@ -8,8 +8,16 @@ const session = require('express-session');
 const passport = require('passport');
 const passportlocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo');
+const sassMiddleware = require('node-sass-middleware');
 
 
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix:'/css'
+}));
 app.use(expressLayouts);
 app.use(CookieParser());
 //extract style and script from the sub pages into the layout page
