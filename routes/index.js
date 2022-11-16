@@ -8,6 +8,10 @@ const homeController = require('../controller');
 const userController = require('../controller/user_controller');
 
 router.get('/',homeController.home);
+
+router.use('/posts',require('./post'));
+
+
 router.get('/profile',passport.checkAuthentication,userController.profile);
 router.get('/user',userController.user);
 router.get('/userSignin',userController.userSignin);
@@ -18,5 +22,7 @@ router.post('/user/create-session',passport.authenticate(
     'local',
     {failureRedirect:'/userSignin'}
 ),userController.createSession);
+
+
 
 module.exports = router;
