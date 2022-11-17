@@ -7,5 +7,5 @@ module.exports.createPost = function(req,res){
     },function(err,post){
         if(err){console.log(err,'<<--- the error while creating the database for posts , createPost()...');return;}
         return res.redirect('back');
-    })
+    });
 }

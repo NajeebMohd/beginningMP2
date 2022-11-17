@@ -10,6 +10,7 @@ const userController = require('../controller/user_controller');
 router.get('/',homeController.home);
 
 router.use('/posts',require('./post'));
+router.use('/comment',require('./comment.js'));
 
 
 router.get('/profile',passport.checkAuthentication,userController.profile);
