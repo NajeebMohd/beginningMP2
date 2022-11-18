@@ -10,10 +10,10 @@ const postSchema = new mongoose.Schema({
         ref : 'User'
     },
     //include array of id's of all comments in this posts Schema itself
-    comment: [
+    comments: [
         {
             type : mongoose.Schema.Types.ObjectId,
-            ref : 'comment'
+            ref : 'Comment'
         }
     ]
 },{

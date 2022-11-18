@@ -2,6 +2,7 @@ body{
     margin:0;
     align-items: center;
     #mains{
-        height: 600px;
+        min-height: 600px;
+        height: auto;
     }
 }

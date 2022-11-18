@@ -10,7 +10,8 @@ module.exports.createComment = function(req,res){
                 post:req.body.post
             },function(err,comment){
                 //handle the error
-                post.comment.push(comment);
+                if(err){console.log(err,'<<-- the error while creating the comment...');return;}
+                post.comments.push(comment);
                 post.save();
                 res.redirect('/');
             });
