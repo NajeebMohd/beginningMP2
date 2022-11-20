@@ -18,3 +18,16 @@ module.exports.createComment = function(req,res){
         }
     });
 }
+
+module.exports.destroyComment = function(req,res){
+    comment.findById(req.params.id,function(err,comment){
+        if(comment.user == req.user.id){
+            comment.remove();            
+            Post.findByIdAndUpdate(comment.post,{ $pull: {comments : req.params.id}},function(err,post){
+                return res.redirect('back');
+            });
+        }else{
+            return res.redirect('back');
+        }
+    });
+}
