@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= %></title>
+    <title><%= title %></title>
 </head>
 <body>
     <h1>You are in the Profile page</h1>
-    <h1><%= user.username %></h1>
-    <h1><%= user.email %></h1>
+    <h1><%= profile_user.username %></h1>
+    <h1><%= profile_user.email %></h1>
+
+    <% if(user.id == profile_user.id){ %>
+        <form action="/update/<%= user.id %>" method="POST">
+            <input type = "text" name = "username" required value = "<%= profile_user.username %>" placeholder="Your name">
+            <input type = "email" name = "email" required value = "<%= profile_user.email %>" placeholder="Your Email">
+            <input type = "submit" value = "update">
+        </form>
+    <% } %>
     
 </body>
 </html>

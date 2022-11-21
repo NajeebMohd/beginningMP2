@@ -13,7 +13,8 @@ router.use('/posts',require('./post'));
 router.use('/comment',require('./comment.js'));
 
 
-router.get('/profile',passport.checkAuthentication,userController.profile);
+router.get('/profile/:id',passport.checkAuthentication,userController.profile);
+
 router.get('/user',userController.user);
 router.get('/userSignin',userController.userSignin);
 router.post('/user/create',userController.create);
@@ -24,6 +25,7 @@ router.post('/user/create-session',passport.authenticate(
     {failureRedirect:'/userSignin'}
 ),userController.createSession);
 
+router.post('/update/:id',passport.checkAuthentication,userController.update);
 
 
 module.exports = router;

@@ -1,61 +1,36 @@
+<link rel="stylesheet" href="/css/home.css">
 
-<h1>in the home page</h1>
-
-<section id = "feed-posts" style="height: auto;">
-    <h4>Posts</h4>
-    <% if(locals.user){ %>
-        <form action="/posts/post-create" id = "new-feed-post" method="POST">
-            <textarea name= "content" cols="30" rows="3" required></textarea>
-            <input type="submit" value="POST">
+<div id = "home-container">
+    <section id = "feed-posts" style="height: auto;">
+        <h2>Posts</h2>
+        <% if(locals.user){ %>
+            <form action="/posts/post-create" id = "new-feed-post" method="POST">
+                <textarea name= "content" cols="30" rows="3" required></textarea>
+                <input type="submit" value="POST">
+        
+            </form>
+        <% } %>
+        
     
-        </form>
-    <% } %>
-    
-
-    <div id = "posts-list">
-        <ul>
-            <% for(post of posts){ %>
-            
-                <li>
-                    <p>
-                        <% if(locals.user && post.user.id == locals.user.id ){ %>
-                            <small><a href = "/posts/destroy/<%= post.id %>">X</a></small>    
-                        <% } %>
-                        <b><%= post.user.username %></b>
-                        <br>
-                        <%= post.content %>
-
-                    </p>
-                    <div class = "post-comment">
-                        <% if(locals.user){ %>
-                            <form action = "/comment/create-comment" method = "POST">
-                                <input type="text" name = "content" placeholder="type the comment..." required></input>
-                                <input type="hidden" name= "post" value= "<%= post._id %>">
-                                <input type = "submit" value="Add comment">
-                            </form>
-                        <% } %>
-                        <div class="post-comment-lists" style="background-color:rgb(147, 144, 144); padding:15px; margin-top: 10px; border-radius: 2rem; width: 80%;">
-                            <h4>comments</h4>
-                            <ul>
-                                <% for(comment of post.comments){ %>
-                                    
-                                    <li>                                        
-                                        <p><%= comment.content %></p>                                    
-                                        <span>commented by </span><b><%= comment.user.username %></b>
-                                        <br>
-                                        <% if(locals.user && locals.user.id == comment.user.id){ %>
-                                            <small><a href="/comment/destroy/<%= comment.id %>">X</a></small>
-                                        <% } %>
-                                    </li>
-                                <% } %>
-                            </ul>
-                        </div>
-                        
-                    </div>
-                    
-                </li>
+        <div id = "posts-list">
+            <ul>
+                <% for(post of posts){ %>
                 
-            <% }%>
+                    <%- include('_post') -%>
+                    
+                <% }%>
+            </ul>
+        </div>
+    </section>
+    
+    <section id = "user-friends">
+        <h3>Friends</h3>
+        <ul>
+            <% for(u of all_users){ %>
+                <li>
+                    <a href = "/profile/<%= u._id %>" > <%= u.username %> </a>
+                </li>
+            <% } %>
         </ul>
-    </div>
-</section>
+    </section>
+</div>
