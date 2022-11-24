@@ -16,14 +16,16 @@
                 <input type = "submit" value="Add comment">
             </form>
         <% } %>
-        <div class="post-comment-lists" style="background-color:rgb(147, 144, 144); padding:15px; margin-top: 10px; border-radius: 2rem; width: 80%;">
-            <h4>comments</h4>
-            <ul>
-                <% for(comment of post.comments){ %>
-                    <%- include('_comment') -%>                    
-                <% } %>
-            </ul>
-        </div>
+        <% if(post.comments.length != 0){%>
+            <div class="post-comment-lists" style="background-color:rgb(147, 144, 144); padding:15px; margin-top: 10px; border-radius: 2rem; width: 80%;">
+                <h4>comments</h4>
+                <ul>
+                    <% for(comment of post.comments){ %>
+                        <%- include('_comment') -%>                    
+                    <% } %>
+                </ul>
+            </div>
+        <% } %>
         
     </div>
     
