@@ -13,6 +13,16 @@ module.exports.createComment = function(req,res){
                 if(err){console.log(err,'<<-- the error while creating the comment...');return;}
                 post.comments.push(comment);
                 post.save();
+                req.flash('success','comment published!!');
+                if(req.xhr){
+                    return res.status(200).json({
+                        data : {
+                            data : req.body.post,
+                            comment : comment
+                        },
+                        message : 'comment published!!!'
+                    });
+                }
                 res.redirect('/');
             });
         }
@@ -24,6 +34,15 @@ module.exports.destroyComment = function(req,res){
         if(comment.user == req.user.id){
             comment.remove();            
             Post.findByIdAndUpdate(comment.post,{ $pull: {comments : req.params.id}},function(err,post){
+                req.flash('success','post published!!');
+                if(req.xhr){
+                    return res.status(200).json({
+                        data : {
+                            id : req.params.id,
+                            message : 'comment is deleted!!!'
+                        }
+                    });
+                }
                 return res.redirect('back');
             });
         }else{
