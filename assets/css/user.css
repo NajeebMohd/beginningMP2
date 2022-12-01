@@ -2,10 +2,10 @@ body {
   background-color: skyblue; }
 
 #container {
-  height: 80%;
+  height: 100%;
   width: 50%;
   margin-left: 25%;
-  border: 1px solid black; }
+  padding-top: 5%; }
 
 form {
   height: 100%;

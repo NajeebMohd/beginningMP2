@@ -1,9 +1,12 @@
 const comment = require('../models/comment');
 const Post = require('../models/post');
+const User = require('../models/user');
 
-module.exports.createComment = function(req,res){
+module.exports.createComment = async function(req,res){
+    let user = await User.findById(req.user._id);
     Post.findById(req.body.post,function(err,post){
-        if(post){
+        
+        if(post){            
             comment.create({
                 content:req.body.content,
                 user: req.user._id,
@@ -13,12 +16,15 @@ module.exports.createComment = function(req,res){
                 if(err){console.log(err,'<<-- the error while creating the comment...');return;}
                 post.comments.push(comment);
                 post.save();
+                
                 req.flash('success','comment published!!');
                 if(req.xhr){
                     return res.status(200).json({
                         data : {
                             data : req.body.post,
-                            comment : comment
+                            comment : comment,
+                            username : user.username
+                            
                         },
                         message : 'comment published!!!'
                     });
