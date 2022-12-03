@@ -8,6 +8,8 @@
 </head>
 <body>
     <h1>You are in the Profile page</h1>
+    <img src="<%= profile_user.avatar %>" alt="<%= profile_user.username %>" width="100">
+    <br>
     <h1><%= profile_user.username %></h1>
     <h1><%= profile_user.email %></h1>
 
@@ -15,7 +17,7 @@
         <form action="/update/<%= user.id %>" method="POST" enctype="multipart/form-data">
             <input type = "text" name = "username" required value = "<%= profile_user.username %>" placeholder="Your name">
             <input type = "email" name = "email" required value = "<%= profile_user.email %>" placeholder="Your Email">
-            <input type = "file" placeholder="profile picture" name = "dp">
+            <input type = "file" placeholder="profile picture" name = "avatar">
             <input type = "submit" value = "update">
         </form>
     <% } %>

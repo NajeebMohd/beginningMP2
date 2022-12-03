@@ -19,7 +19,7 @@ module.exports.createPost = async function(req,res){
             user: req.user._id 
         })
         let user = await User.findById(post.user);
-        req.flash('success','post published!!');
+        
         if(req.xhr){
             return res.status(200).json({
                 data : {
@@ -29,7 +29,7 @@ module.exports.createPost = async function(req,res){
                 message : 'Post published!!!'
             });
         }
-
+        req.flash('success','post published!!');
         
         return res.redirect('back');
         
@@ -66,7 +66,7 @@ module.exports.destroy = async function(req,res){
 
 
             await Comment.deleteMany({post: req.params.id});
-            req.flash('success','post is deleted !!!');
+            
             if(req.xhr){
                 return res.status(200).json({
                     data:{
@@ -75,6 +75,7 @@ module.exports.destroy = async function(req,res){
                     message : "post deleted"
                 });
             }
+            req.flash('success','post is deleted !!!');
             return res.redirect('back');
         }else{
             req.flash('error','you cannot delete this post!!!');            

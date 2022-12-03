@@ -17,7 +17,7 @@ module.exports.createComment = async function(req,res){
                 post.comments.push(comment);
                 post.save();
                 
-                req.flash('success','comment published!!');
+                
                 if(req.xhr){
                     return res.status(200).json({
                         data : {
@@ -29,6 +29,7 @@ module.exports.createComment = async function(req,res){
                         message : 'comment published!!!'
                     });
                 }
+                req.flash('success','comment published!!');
                 res.redirect('/');
             });
         }
@@ -40,7 +41,7 @@ module.exports.destroyComment = function(req,res){
         if(comment.user == req.user.id){
             comment.remove();            
             Post.findByIdAndUpdate(comment.post,{ $pull: {comments : req.params.id}},function(err,post){
-                req.flash('success','post published!!');
+                
                 if(req.xhr){
                     return res.status(200).json({
                         data : {
@@ -49,6 +50,7 @@ module.exports.destroyComment = function(req,res){
                         }
                     });
                 }
+                req.flash('success','comment is deleted!!!');
                 return res.redirect('back');
             });
         }else{

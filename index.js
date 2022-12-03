@@ -31,6 +31,8 @@ app.set('layout extractScripts', true);
 app.use(express.urlencoded());
 
 app.use(express.static('assets'));
+app.use('/uploads',express.static(__dirname + '/uploads'));
+// make the upload path available for browser
 app.set('view engine', 'ejs');
 app.set('views','./views');
 
