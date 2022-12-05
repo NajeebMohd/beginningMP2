@@ -12,6 +12,9 @@ router.get('/',homeController.home);
 router.use('/posts',require('./post'));
 router.use('/comment',require('./comment.js'));
 
+router.use('/api',require('./api'));
+
+
 
 router.get('/profile/:id',passport.checkAuthentication,userController.profile);
 
