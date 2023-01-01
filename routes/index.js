@@ -30,5 +30,9 @@ router.post('/user/create-session',passport.authenticate(
 
 router.post('/update/:id',passport.checkAuthentication,userController.update);
 
+router.get('/users/auth/google',passport.authenticate('google',{scope:['profile','email']}));
+//this is used for authentication of a google account
+router.get('/users/auth/google/callback',passport.authenticate('google',{failureRedirect:'/userSignin'}),userController.createSession);
+//this is used as callback when an google account is authenticated and to open up the page...
 
 module.exports = router;

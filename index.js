@@ -8,19 +8,20 @@ const session = require('express-session');
 const passport = require('passport');
 const passportlocal = require('./config/passport-local-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
+const passportGoogle = require('./config/passport-google-oauth-strategy');
 const MongoStore = require('connect-mongo');
-const sassMiddleware = require('node-sass-middleware');
+//const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const flashMW = require('./config/middleware');
 
 
-app.use(sassMiddleware({
-    src: './assets/scss',
-    dest: './assets/css',
-    debug: true,
-    outputStyle: 'extended',
-    prefix:'/css'
-}));
+// app.use(sassMiddleware({
+//     src: './assets/scss',
+//     dest: './assets/css',
+//     debug: true,
+//     outputStyle: 'extended',
+//     prefix:'/css'
+// }));
 app.use(expressLayouts);
 app.use(CookieParser());
 //extract style and script from the sub pages into the layout page
@@ -49,7 +50,7 @@ app.use(session({
     },
     store:MongoStore.create(
         {
-            mongoUrl : 'mongodb://localhost/codeial_development',
+            mongoUrl : 'mongodb://127.0.0.1:27017/codeial_development',
             autoRemove : 'Disabled',
             mongoOptions : {}
         },
