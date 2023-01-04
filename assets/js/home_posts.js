@@ -85,7 +85,7 @@
                 success : function(data){
                     console.log(data);
                     let NewComment = newCommentDom(data.data.comment, data.data.username);
-                    $(`#post-comments-${data.data.data}`).prepend(NewComment);
+                    $(`#post-comments-${data.data.comment.post}`).prepend(NewComment);
 
                     deleteComment($(' a',NewComment));
                 },error : function(error){
