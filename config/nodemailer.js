@@ -8,9 +8,8 @@ const transporter = nodemailer.createTransport({
     port : 587,
     secure : false,
     auth : {
-        user : 'jscheck170@gmail.com',
-        pass : 'ghqmcgwlkgxrmixn'
-    }//ghqmcgwlkgxrmixn
+        
+    }
 });
 
 let renderTemplate = (data, relativePath) => {
