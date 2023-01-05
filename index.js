@@ -1,3 +1,6 @@
+// require("dotenv").config();
+// const redis = require("redis");
+
 const express = require('express');
 const CookieParser = require('cookie-parser');
 const app = express();
@@ -10,18 +13,31 @@ const passportlocal = require('./config/passport-local-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
 const passportGoogle = require('./config/passport-google-oauth-strategy');
 const MongoStore = require('connect-mongo');
-//const sassMiddleware = require('node-sass-middleware');
+const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const flashMW = require('./config/middleware');
+// const kue = require('./config/kue');
 
 
-// app.use(sassMiddleware({
-//     src: './assets/scss',
-//     dest: './assets/css',
-//     debug: true,
-//     outputStyle: 'extended',
-//     prefix:'/css'
-// }));
+
+// const client = redis.createClient({
+//     host: process.env.REDIS_HOSTNAME,
+//     port: process.env.REDIS_PORT,
+//     password: process.env.REDIS_PASSWORD
+// });
+
+// client.on("connect", () => {
+//     console.log("Connected to our redis instance!");
+//     client.set("Greatest Basketball Player", "Lebron James");
+// });
+
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix:'/css'
+}));
 app.use(expressLayouts);
 app.use(CookieParser());
 //extract style and script from the sub pages into the layout page

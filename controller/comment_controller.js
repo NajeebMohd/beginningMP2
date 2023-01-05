@@ -51,12 +51,11 @@ module.exports.createComment = async function(req,res){
             post.comments.push(comment);
             post.save();           
             
-            comment = await comment.populate('user')//getting problem here solve it            
+            comment = await comment.populate('user','username email')//getting problem here solve it            
             commentsMailer.newComment(comment);
 
             let username = comment.user.username;            
-            if(req.xhr){
-                console.log('yeah we have reached it...');
+            if(req.xhr){                
                 return res.status(200).json({
                     data:{
                         comment : comment,
