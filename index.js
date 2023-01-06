@@ -1,6 +1,3 @@
-// require("dotenv").config();
-// const redis = require("redis");
-
 const express = require('express');
 const CookieParser = require('cookie-parser');
 const app = express();
@@ -16,20 +13,7 @@ const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const flashMW = require('./config/middleware');
-// const kue = require('./config/kue');
 
-
-
-// const client = redis.createClient({
-//     host: process.env.REDIS_HOSTNAME,
-//     port: process.env.REDIS_PORT,
-//     password: process.env.REDIS_PASSWORD
-// });
-
-// client.on("connect", () => {
-//     console.log("Connected to our redis instance!");
-//     client.set("Greatest Basketball Player", "Lebron James");
-// });
 
 app.use(sassMiddleware({
     src: './assets/scss',

@@ -1,42 +1,9 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 const User = require('../models/user');
-const commentsMailer = require('../mailers/comments_mailer');
-
-// module.exports.createComment = async function(req,res){
-//     let user = await User.findById(req.user._id);
-//     Post.findById(req.body.post,function(err,post){
-        
-//         if(post){            
-//             Comment.create({
-//                 content:req.body.content,
-//                 user: req.user._id,
-//                 post:req.body.post
-//             },function(err,commentt){
-//                 //handle the error
-//                 if(err){console.log(err,'<<-- the error while creating the comment...');return;}
-//                 post.comments.push(commentt);
-//                 post.save();
-
-//                 //commentt = commentt.populate('user','name').execPopulate();
-//                 //commentsMailer.newComment(commentt);
-                
-//                 if(req.xhr){
-//                     return res.status(200).json({
-//                         data : {
-//                             data : req.body.post,//post id
-//                             comment : commentt,
-//                             username : user.username                            
-//                         },
-//                         message : 'comment published!!!'
-//                     });
-//                 }
-//                 req.flash('success','comment published!!');
-//                 res.redirect('/');
-//             });
-//         }
-//     });
-// }
+const queue = require('../config/kue');
+const CommentEmailWorker = require('../workers/comment_email_worker');
+//const commentsMailer = require('../mailers/comments_mailer');
 
 
 module.exports.createComment = async function(req,res){    
@@ -52,9 +19,13 @@ module.exports.createComment = async function(req,res){
             post.save();           
             
             comment = await comment.populate('user','username email')//getting problem here solve it            
-            commentsMailer.newComment(comment);
-
-            let username = comment.user.username;            
+            //commentsMailer.newComment(comment);
+            let job = queue.create('emails',comment).save(function(err){
+                if(err){console.log('error while creating a queue ',err);return;}
+                console.log('job enqued -- > ',job.id);
+            });
+            let username = comment.user.username;
+            req.flash('success','comment published!!');            
             if(req.xhr){                
                 return res.status(200).json({
                     data:{
@@ -64,7 +35,7 @@ module.exports.createComment = async function(req,res){
                     message : 'comment created'
                 });
             }
-            req.flash('success','comment published!!');
+            
             res.redirect('/');
         }
     }catch(err){
